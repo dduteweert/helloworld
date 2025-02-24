@@ -1,20 +1,31 @@
 pipeline {
     agent any
 
+    parameters {
+        string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+
+        text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
+
+        booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
+
+        choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
+
+        password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
+    }
+
     stages {
-        stage("build") {
+        stage("say hello") {
             steps {
-                // the script that executes on the jenkins server/jenkins agent
-                echo 'building the application'
+                echo "Hello ${params.PERSON}"
             }
 
         }
-
-        stage("test") {
+        stage("choice") {
             steps {
-                echo 'testing the application'
+                echo "Your choice was ${params.CHOICE}"
             }
 
+        }
         }
     }
 }
